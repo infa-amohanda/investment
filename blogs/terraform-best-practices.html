@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terraform Best Practices — TechAndSats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared.css">
+<style>
+.blog-hero{padding:9rem 3rem 3rem;max-width:760px;margin:0 auto;opacity:0;animation:fadeUp 0.6s 0.1s ease forwards}
+.blog-meta{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap}
+.blog-tag{font-family:'Syne',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.28rem 0.7rem;border-radius:999px}
+.tag-devops{background:var(--accent2-bg);color:var(--accent2)}
+.blog-date,.blog-read{font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:600;color:var(--muted);letter-spacing:0.08em}
+.blog-hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:800;letter-spacing:-0.02em;line-height:1.15;margin-bottom:1.25rem}
+.lead{font-family:'Lora',serif;font-style:italic;font-size:1.1rem;color:var(--muted);line-height:1.75;border-left:3px solid var(--accent2);padding-left:1.25rem}
+.blog-divider{border:none;border-top:1px solid var(--border);max-width:760px;margin:0 auto}
+.blog-body{max-width:760px;margin:0 auto;padding:3rem 3rem 5rem;opacity:0;animation:fadeUp 0.6s 0.25s ease forwards}
+.blog-body h2{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.01em;margin:2.5rem 0 1rem}
+.blog-body h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin:2rem 0 0.75rem}
+.blog-body p{font-size:0.97rem;color:var(--text);opacity:0.85;line-height:1.85;margin-bottom:1.25rem}
+.blog-body ul,.blog-body ol{padding-left:1.5rem;margin-bottom:1.25rem}
+.blog-body li{font-size:0.95rem;color:var(--text);opacity:0.8;line-height:1.8;margin-bottom:0.4rem}
+.blog-body strong{font-weight:700;color:var(--text);opacity:1}
+.blog-body code{font-family:monospace;font-size:0.85rem;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:0.15rem 0.4rem;color:var(--accent);transition:background 0.3s}
+.blog-body pre{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;overflow-x:auto;margin-bottom:1.5rem;transition:background 0.3s}
+.blog-body pre code{background:none;border:none;padding:0;font-size:0.83rem;color:var(--text);opacity:0.9}
+.callout{background:var(--accent2-bg);border-left:3px solid var(--accent2);border-radius:var(--radius);padding:1rem 1.25rem;margin:1.5rem 0;font-size:0.9rem;line-height:1.7;transition:background 0.3s}
+.warn{background:rgba(220,80,80,0.06);border-left:3px solid #C05050;border-radius:var(--radius);padding:1rem 1.25rem;margin:1.5rem 0;font-size:0.9rem;line-height:1.7}
+[data-theme="dark"] .warn{background:rgba(255,100,100,0.08);border-color:#FF8080}
+.back-link{font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem}
+.back-link:hover{gap:0.7rem}
+@media(max-width:860px){.blog-hero{padding:7rem 1.5rem 2.5rem}.blog-body{padding:2.5rem 1.5rem 4rem}}
+</style>
+</head>
+<body>
+<div class="hero-mesh"></div>
+<nav>
+  <a class="nav-logo" href="../index.html">Tech<span>&</span>Sats</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="../index.html#blogs" class="active">Blog</a></li>
+      <li><a href="../referrals.html">Referrals</a></li>
+      <li><a href="../index.html#about">About</a></li>
+    </ul>
+    <button class="theme-toggle" id="toggle" aria-label="Toggle theme">
+      <div class="theme-toggle-knob"></div>
+      <span class="theme-toggle-icon icon-sun">☀</span>
+      <span class="theme-toggle-icon icon-moon">☽</span>
+    </button>
+  </div>
+</nav>
+
+<div class="blog-hero">
+  <a class="back-link" href="../index.html#blogs">← Back to Blog</a>
+  <div class="blog-meta">
+    <span class="blog-tag tag-devops">DevOps</span>
+    <span class="blog-date">May 2026</span>
+    <span class="blog-read">8 min read</span>
+  </div>
+  <h1>Terraform Best Practices: Lessons from 13 Years of Infrastructure Automation</h1>
+  <p class="lead">State management, module design, workspace strategy, and the anti-patterns I see repeated in teams across AWS, Azure, and GCP.</p>
+</div>
+
+<hr class="blog-divider">
+
+<div class="blog-body">
+  <h2>Why this keeps mattering</h2>
+  <p>Terraform has been the de-facto IaC standard for years now, and yet I consistently see the same mistakes in codebases across organisations — from startups running a single AWS account to enterprises managing hundreds of accounts across multiple clouds. After 13 years of infrastructure automation work, here are the practices that have saved me (and teams I've worked with) the most pain.</p>
+
+  <h2>1. Remote State is Non-Negotiable</h2>
+  <p>Local state is fine for experimentation. The moment more than one person touches a codebase, you need remote state. Full stop.</p>
+  <pre><code>terraform {
+  backend "s3" {
+    bucket         = "my-org-tfstate"
+    key            = "prod/networking/terraform.tfstate"
+    region         = "eu-west-1"
+    encrypt        = true
+    dynamodb_table = "terraform-locks"
+  }
+}</code></pre>
+  <p>The DynamoDB lock table is critical. Without it, two engineers running <code>terraform apply</code> simultaneously will corrupt your state file. I've seen this happen in production. It's not fun.</p>
+  <div class="callout">✓ Use S3 + DynamoDB on AWS, Azure Blob Storage + Cosmos DB on Azure, or GCS + a lock mechanism on GCP. All three clouds have well-documented patterns.</div>
+
+  <h2>2. Structure Your State Thoughtfully</h2>
+  <p>The single-monolithic-state-file anti-pattern is the most common mistake I see in growing teams. When everything is in one state file, a single <code>terraform plan</code> touches every resource — making it slow, risky, and hard to reason about.</p>
+  <p>Instead, separate state by:</p>
+  <ul>
+    <li><strong>Layer</strong> — networking, compute, data, security (loosely coupled, ordered dependency)</li>
+    <li><strong>Environment</strong> — dev, staging, prod each get their own state</li>
+    <li><strong>Region</strong> — especially important for multi-region architectures</li>
+  </ul>
+  <p>Use <code>terraform_remote_state</code> data sources to share outputs between layers rather than hardcoding values across state files.</p>
+
+  <h2>3. Module Design Principles</h2>
+  <p>Modules should have a single responsibility, clear input/output contracts, and sensible defaults. Avoid the "mega module" that tries to provision an entire environment in one call.</p>
+  <pre><code># Good: focused module
+module "vpc" {
+  source     = "./modules/vpc"
+  cidr_block = var.vpc_cidr
+  az_count   = 3
+}
+
+# Anti-pattern: doing too much in one module
+module "everything" {
+  source = "./modules/full-stack" # ❌ avoid this
+}</code></pre>
+  <div class="callout">✓ Version-pin your modules. Using a Git source without a tag or SHA means a colleague's change to a shared module can silently break your infrastructure.</div>
+
+  <h2>4. Workspace Strategy</h2>
+  <p>Terraform workspaces are useful but misunderstood. They are <em>not</em> a replacement for environment isolation — they share backend configuration and don't provide hard boundaries between environments.</p>
+  <p>My recommendation: use workspaces for lightweight environment differences (e.g. dev vs. test on the same account), and separate state backends for hard environment isolation (prod should never share a backend with dev).</p>
+
+  <h2>5. Variable Hygiene</h2>
+  <p>Never hardcode environment-specific values. Use variable files per environment:</p>
+  <pre><code>environments/
+  dev.tfvars
+  staging.tfvars
+  prod.tfvars</code></pre>
+  <p>Pass them explicitly on the CLI: <code>terraform plan -var-file=environments/prod.tfvars</code>. Better yet, wire this into your CI/CD pipeline so it's never a manual step.</p>
+
+  <h2>6. Linting, Validation, and Security Scanning</h2>
+  <p>Add these to every PR pipeline:</p>
+  <ul>
+    <li><code>terraform fmt -check</code> — enforces consistent formatting</li>
+    <li><code>terraform validate</code> — catches configuration errors before plan</li>
+    <li><strong>tflint</strong> — catches provider-specific issues (e.g. invalid instance types)</li>
+    <li><strong>tfsec</strong> or <strong>Checkov</strong> — static security analysis</li>
+    <li><strong>Infracost</strong> — cost estimation on every PR (surprisingly valuable)</li>
+  </ul>
+
+  <h2>7. The Anti-Patterns That Will Hurt You</h2>
+  <div class="warn">🚫 <strong>count on resource blocks for environment branching.</strong> Use separate configurations, not <code>count = var.env == "prod" ? 1 : 0</code>. It leads to index-based state keys that break on reordering.</div>
+  <div class="warn">🚫 <strong>Storing secrets in tfvars.</strong> Use Vault, AWS Secrets Manager, or Azure Key Vault. Terraform state files store everything in plain text — including your secrets.</div>
+  <div class="warn">🚫 <strong>Manual state surgery without a backup.</strong> Before any <code>terraform state mv</code> or <code>terraform import</code>, take a state backup. Always.</div>
+
+  <h2>Final thoughts</h2>
+  <p>Terraform is a force multiplier for infrastructure teams, but only if it's used with discipline. The patterns above aren't clever tricks — they're the baseline that separates infrastructure that scales with your team from infrastructure that becomes a liability.</p>
+  <p>The best time to adopt these practices is when your codebase is small. The second best time is now.</p>
+</div>
+
+<footer>
+  <a class="footer-logo" href="../index.html">Tech<span>&</span>Sats</a>
+  <div class="footer-links">
+    <a href="../index.html#blogs">Blog</a>
+    <a href="../referrals.html">Referrals</a>
+    <a href="../index.html#about">About</a>
+  </div>
+  <div class="footer-copy">© 2026 TechAndSats · Not financial advice</div>
+</footer>
+<script>
+const html=document.documentElement,btn=document.getElementById('toggle');
+html.setAttribute('data-theme',localStorage.getItem('tas-theme')||'light');
+btn.addEventListener('click',()=>{const n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('tas-theme',n);});
+</script>
+</body></html>
