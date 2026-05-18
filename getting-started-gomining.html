@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Getting Started with GoMining — TechAndSats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared.css">
+<style>
+.blog-hero{padding:9rem 3rem 3rem;max-width:760px;margin:0 auto;opacity:0;animation:fadeUp 0.6s 0.1s ease forwards}
+.blog-meta{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;flex-wrap:wrap}
+.blog-tag{font-family:'Syne',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.28rem 0.7rem;border-radius:999px}
+.tag-crypto{background:var(--accent-bg);color:var(--accent)}
+.blog-date,.blog-read{font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:600;color:var(--muted);letter-spacing:0.08em}
+.blog-hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:800;letter-spacing:-0.02em;line-height:1.15;margin-bottom:1.25rem}
+.lead{font-family:'Lora',serif;font-style:italic;font-size:1.1rem;color:var(--muted);line-height:1.75;border-left:3px solid var(--accent);padding-left:1.25rem}
+.blog-divider{border:none;border-top:1px solid var(--border);max-width:760px;margin:0 auto}
+.blog-body{max-width:760px;margin:0 auto;padding:3rem 3rem 5rem;opacity:0;animation:fadeUp 0.6s 0.25s ease forwards}
+.blog-body h2{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-0.01em;margin:2.5rem 0 1rem}
+.blog-body h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin:2rem 0 0.75rem}
+.blog-body p{font-size:0.97rem;color:var(--text);opacity:0.85;line-height:1.85;margin-bottom:1.25rem}
+.blog-body ul{padding-left:1.5rem;margin-bottom:1.25rem}
+.blog-body li{font-size:0.95rem;color:var(--text);opacity:0.8;line-height:1.8;margin-bottom:0.4rem}
+.blog-body strong{font-weight:700;color:var(--text);opacity:1}
+.callout{background:var(--accent-bg);border:1px solid rgba(200,151,58,0.2);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1rem 1.25rem;margin:1.5rem 0;font-size:0.9rem;line-height:1.7;transition:background 0.3s}
+.ref-cta-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin:2.5rem 0;text-align:center;transition:background 0.3s}
+.ref-cta-box h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:0.5rem}
+.ref-cta-box p{font-size:0.88rem;color:var(--muted);margin-bottom:1.25rem}
+.back-link{font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem}
+.back-link:hover{gap:0.7rem}
+@media(max-width:860px){.blog-hero{padding:7rem 1.5rem 2.5rem}.blog-body{padding:2.5rem 1.5rem 4rem}}
+</style>
+</head>
+<body>
+<div class="hero-mesh"></div>
+<nav>
+  <a class="nav-logo" href="../index.html">Tech<span>&</span>Sats</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="../index.html#blogs" class="active">Blog</a></li>
+      <li><a href="../referrals.html">Referrals</a></li>
+      <li><a href="../index.html#about">About</a></li>
+    </ul>
+    <button class="theme-toggle" id="toggle" aria-label="Toggle theme">
+      <div class="theme-toggle-knob"></div>
+      <span class="theme-toggle-icon icon-sun">☀</span>
+      <span class="theme-toggle-icon icon-moon">☽</span>
+    </button>
+  </div>
+</nav>
+
+<div class="blog-hero">
+  <a class="back-link" href="../index.html#blogs">← Back to Blog</a>
+  <div class="blog-meta">
+    <span class="blog-tag tag-crypto">Crypto</span>
+    <span class="blog-date">May 2026</span>
+    <span class="blog-read">5 min read</span>
+  </div>
+  <h1>Getting Started with GoMining: Passive Bitcoin Income Without the Hardware</h1>
+  <p class="lead">How I built a 1,010 TH/s mining fleet without owning a single ASIC — and what I learned about passive BTC income along the way.</p>
+</div>
+
+<hr class="blog-divider">
+
+<div class="blog-body">
+  <h2>What is GoMining?</h2>
+  <p>GoMining is a platform that lets you participate in Bitcoin mining without purchasing, hosting, or maintaining physical ASIC hardware. Instead, you buy NFTs that represent real mining machines operating in professional data centres. The platform handles power, cooling, maintenance, and pool management — you just collect BTC daily.</p>
+  <p>I discovered it about two years ago while looking for ways to get BTC exposure beyond simply buying and holding. The idea of receiving daily BTC regardless of price action appealed to me as someone with a DevOps mindset — I liked the idea of infrastructure working for me while I sleep.</p>
+
+  <h2>How Does It Actually Work?</h2>
+  <p>Each miner NFT has two key specs: <strong>hashrate (TH/s)</strong> and <strong>energy efficiency (J/TH)</strong>. Hashrate determines your share of the daily Bitcoin block rewards. Efficiency determines how much of that reward is consumed by the maintenance fee — the platform's way of accounting for electricity costs.</p>
+  <p>The daily reward formula is roughly:</p>
+  <div class="callout">Daily BTC ≈ (Your TH/s ÷ Network TH/s) × Block Rewards × (1 − Maintenance Fee %)</div>
+  <p>The better your efficiency, the lower your maintenance fee, and the more BTC you keep. This is why efficiency matters more than raw hashrate as you scale up.</p>
+
+  <h2>My Fleet Today</h2>
+  <p>I currently run <strong>6 miners totalling 1,010 TH/s</strong> with an average efficiency of 15.46 J/TH. I've reached VIP 8 Platinum I status, which gives me an 11.1% maintenance discount on top of the base rate — this compounds meaningfully at my scale.</p>
+  <ul>
+    <li>Daily payouts land automatically in my GoMining wallet</li>
+    <li>I track BTC earned vs. maintenance cost weekly</li>
+    <li>I participate in Miner Wars for bonus BTC on top of passive income</li>
+    <li>I reinvest a portion of earnings into hashrate upgrades</li>
+  </ul>
+
+  <h2>Getting Started: Step by Step</h2>
+  <h3>1. Create an account</h3>
+  <p>Sign up via my referral link below. You'll get a welcome bonus and I get a referral reward — a win for both of us.</p>
+  <h3>2. Browse the miner marketplace</h3>
+  <p>Start with a mid-range miner. Don't obsess over the cheapest option — efficiency matters. A miner at 18 J/TH will eat into your rewards significantly more than one at 14 J/TH.</p>
+  <h3>3. Monitor your daily BTC</h3>
+  <p>The dashboard shows real-time hashrate, daily earnings, and maintenance cost. Give it a week to get a feel for your actual net BTC flow.</p>
+  <h3>4. Compound or withdraw</h3>
+  <p>GoMining lets you upgrade miners directly with your accumulated BTC. Compounding early accelerates your fleet growth. Once you're happy with your TH/s, withdrawals to an external wallet are straightforward.</p>
+
+  <div class="callout">💡 Pro tip: Watch for VIP level thresholds. Each tier reduces your maintenance discount, which at scale is worth more than the cost of the next miner upgrade.</div>
+
+  <h2>Is It Worth It?</h2>
+  <p>That depends entirely on your BTC price assumptions and time horizon. During bull markets, the BTC you earn compounds in fiat value. During bear markets, you're still accumulating sats at a steady rate. For me, it functions like a BTC dollar-cost averaging engine that also gives me daily liquidity — something pure HODLing doesn't offer.</p>
+  <p>My honest take: it's not a get-rich-quick scheme. It's a long-term BTC accumulation strategy that suits a certain type of investor. If you're already bullish on Bitcoin and want exposure beyond a buy-and-hold position, GoMining is worth exploring.</p>
+
+  <div class="ref-cta-box">
+    <h3>Ready to start mining?</h3>
+    <p>Use my referral link to sign up and claim your welcome bonus. Referral code: <strong>MBPYPW9</strong></p>
+    <a class="btn-gold" href="https://gomining.com/?ref=MBPYPW9" target="_blank" rel="noopener">Start Mining on GoMining →</a>
+  </div>
+</div>
+
+<footer>
+  <a class="footer-logo" href="../index.html">Tech<span>&</span>Sats</a>
+  <div class="footer-links">
+    <a href="../index.html#blogs">Blog</a>
+    <a href="../referrals.html">Referrals</a>
+    <a href="../index.html#about">About</a>
+  </div>
+  <div class="footer-copy">© 2026 TechAndSats · Not financial advice</div>
+</footer>
+<script>
+const html=document.documentElement,btn=document.getElementById('toggle');
+html.setAttribute('data-theme',localStorage.getItem('tas-theme')||'light');
+btn.addEventListener('click',()=>{const n=html.getAttribute('data-theme')==='dark'?'light':'dark';html.setAttribute('data-theme',n);localStorage.setItem('tas-theme',n);});
+</script>
+</body></html>
