@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referrals — TechAndSats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.page-hero { padding: 9rem 3rem 4rem; max-width: var(--max); margin: 0 auto; }
+.page-title { font-family:'Syne',sans-serif; font-size:clamp(2.4rem,5vw,4rem); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:1rem; }
+.page-title span { color:var(--accent); }
+.page-sub { font-size:1rem; color:var(--muted); max-width:520px; line-height:1.75; margin-bottom:1.5rem; }
+.disclaimer { display:inline-flex; align-items:flex-start; gap:0.6rem; background:var(--accent-bg); border:1px solid rgba(200,151,58,0.2); border-radius:var(--radius); padding:0.75rem 1rem; font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:500; color:var(--accent); max-width:580px; line-height:1.5; }
+.ref-section { padding:2rem 3rem 6rem; max-width:var(--max); margin:0 auto; }
+.cat-label { font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:1.25rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border); }
+.ref-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.25rem; margin-bottom:3.5rem; }
+.ref-card {
+  display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:1.75rem; text-decoration:none; color:inherit; gap:1rem;
+  opacity:0; transform:translateY(16px);
+  transition:opacity 0.45s ease,transform 0.45s ease,border-color 0.2s,box-shadow 0.2s,background 0.3s;
+}
+.ref-card.visible { opacity:1; transform:none; }
+.ref-card:hover { border-color:rgba(200,151,58,0.3); box-shadow:var(--shadow); transform:translateY(-3px); }
+[data-theme="dark"] .ref-card:hover { border-color:rgba(232,197,71,0.25); }
+.ref-card-head { display:flex; align-items:center; gap:1rem; }
+.ref-icon { width:50px; height:50px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+.ri-gm{background:#1a1a2e}.ri-tr{background:#0d0d0d}.ri-rv{background:#191C1F}.ri-kr{background:#5741D9}.ri-bn{background:#F3BA2F}.ri-zb{background:#FF6B00}
+.ref-name { font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:800; letter-spacing:-0.01em; }
+.ref-cat { font-family:'Syne',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+.ref-desc { font-size:0.88rem; color:var(--muted); line-height:1.7; }
+.ref-perks { display:flex; flex-direction:column; gap:0.45rem; }
+.perk { display:flex; align-items:flex-start; gap:0.55rem; font-size:0.82rem; color:var(--text); opacity:0.75; line-height:1.5; }
+.perk-dot { width:5px; height:5px; background:var(--accent); border-radius:50%; flex-shrink:0; margin-top:0.58rem; }
+.ref-code-box { background:var(--bg2); border:1px solid var(--border); border-radius:4px; padding:0.6rem 0.9rem; display:flex; align-items:center; justify-content:space-between; gap:0.5rem; transition:background 0.3s; }
+.ref-code-label { font-family:'Syne',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+.ref-code-val { font-family:monospace; font-size:0.88rem; color:var(--accent); font-weight:700; letter-spacing:0.05em; }
+.copy-btn { font-family:'Syne',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer; transition:color 0.2s,border-color 0.2s; padding:0.25rem 0.5rem; }
+.copy-btn:hover { color:var(--accent); border-color:var(--accent); }
+.ref-cta { display:flex; align-items:center; justify-content:space-between; padding-top:0.75rem; border-top:1px solid var(--border); font-family:'Syne',sans-serif; font-size:0.8rem; font-weight:700; color:var(--accent); letter-spacing:0.04em; }
+.ref-arrow { transition:transform 0.2s; }
+.ref-card:hover .ref-arrow { transform:translateX(5px); }
+@media(max-width:860px){.page-hero{padding:7rem 1.5rem 3rem}.ref-section{padding:1.5rem 1.5rem 4rem}}
+</style>
+</head>
+<body>
+<div class="hero-mesh"></div>
+<nav>
+  <a class="nav-logo" href="index.html">Tech<span>&</span>Sats</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="index.html#blogs">Blog</a></li>
+      <li><a href="referrals.html" class="active">Referrals</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <button class="theme-toggle" id="toggle" aria-label="Toggle theme">
+      <div class="theme-toggle-knob"></div>
+      <span class="theme-toggle-icon icon-sun">☀</span>
+      <span class="theme-toggle-icon icon-moon">☽</span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="section-eyebrow">My Picks</div>
+  <h1 class="page-title">Platforms I <span>actually</span> use.</h1>
+  <p class="page-sub">Every referral link on this page earns us both a bonus. No sponsorships, no paid placements — just tools I rely on daily to invest, trade, and earn passive income.</p>
+  <div class="disclaimer">⚠️ Not financial advice. All investments carry risk. Please do your own research before committing funds to any platform listed here.</div>
+</div>
+
+<section class="ref-section">
+  <div class="cat-label">₿ Bitcoin & Crypto Mining</div>
+  <div class="ref-grid">
+    <a class="ref-card" href="https://gomining.com/?ref=MBPYPW9" target="_blank" rel="noopener">
+      <div class="ref-card-head"><div class="ref-icon ri-gm">⛏️</div><div><div class="ref-cat">Bitcoin Mining</div><div class="ref-name">GoMining</div></div></div>
+      <p class="ref-desc">Passive Bitcoin mining via NFT miners backed by real hardware. I personally run a 1,010 TH/s fleet and receive BTC daily with zero hardware ownership.</p>
+      <div class="ref-perks">
+        <div class="perk"><span class="perk-dot"></span>Daily BTC payouts, no minimums</div>
+        <div class="perk"><span class="perk-dot"></span>No electricity costs or hardware setup</div>
+        <div class="perk"><span class="perk-dot"></span>Trade your miner NFT anytime on the marketplace</div>
+        <div class="perk"><span class="perk-dot"></span>VIP rewards & Miner Wars competitions</div>
+      </div>
+      <div class="ref-code-box">
+        <div><div class="ref-code-label">Referral Code</div><div class="ref-code-val">MBPYPW9</div></div>
+        <button class="copy-btn" onclick="copyCode(event,'MBPYPW9')">Copy</button>
+      </div>
+      <div class="ref-cta">Open GoMining <span class="ref-arrow">→</span></div>
+    </a>
+    <a class="ref-card" href="https://zbd.link/hcHi/invite?af_sub1=YKRMUL" target="_blank" rel="noopener">
+      <div class="ref-card-head"><div class="ref-icon ri-zb">⚡</div><div><div class="ref-cat">Bitcoin Rewards</div><div class="ref-name">ZBD</div></div></div>
+      <p class="ref-desc">Earn real Bitcoin (sats) by playing games, completing surveys and quests. A Lightning Network wallet and rewards app rolled into one — free to use.</p>
+      <div class="ref-perks">
+        <div class="perk"><span class="perk-dot"></span>Earn sats playing mobile games</div>
+        <div class="perk"><span class="perk-dot"></span>Lightning Network withdrawals</div>
+        <div class="perk"><span class="perk-dot"></span>Free to download and use</div>
+      </div>
+      <div class="ref-cta">Open ZBD <span class="ref-arrow">→</span></div>
+    </a>
+  </div>
+
+  <div class="cat-label">📊 Crypto Exchanges</div>
+  <div class="ref-grid">
+    <a class="ref-card" href="https://proinvite.kraken.com/9f1e/yx9ou2kl" target="_blank" rel="noopener">
+      <div class="ref-card-head"><div class="ref-icon ri-kr">🐙</div><div><div class="ref-cat">Crypto Exchange</div><div class="ref-name">Kraken Pro</div></div></div>
+      <p class="ref-desc">One of the world's most trusted crypto exchanges. Trade 200+ assets with institutional-grade security, low fees, and advanced charting tools.</p>
+      <div class="ref-perks">
+        <div class="perk"><span class="perk-dot"></span>200+ cryptocurrencies available</div>
+        <div class="perk"><span class="perk-dot"></span>Industry-leading security track record</div>
+        <div class="perk"><span class="perk-dot"></span>Both of us earn rewards on sign-up</div>
+      </div>
+      <div class="ref-code-box">
+        <div><div class="ref-code-label">Referral Code</div><div class="ref-code-val">9c743pz5</div></div>
+        <button class="copy-btn" onclick="copyCode(event,'9c743pz5')">Copy</button>
+      </div>
+      <div class="ref-cta">Open Kraken Pro <span class="ref-arrow">→</span></div>
+    </a>
+    <a class="ref-card" href="https://account.binance.com/register?ref=289935552" target="_blank" rel="noopener">
+      <div class="ref-card-head"><div class="ref-icon ri-bn">🔶</div><div><div class="ref-cat">Crypto Exchange</div><div class="ref-name">Binance</div></div></div>
+      <p class="ref-desc">The world's largest crypto exchange by volume. Access spot, futures, staking, savings and hundreds of digital assets with best-in-class liquidity.</p>
+      <div class="ref-perks">
+        <div class="perk"><span class="perk-dot"></span>Largest liquidity in the market</div>
+        <div class="perk"><span class="perk-dot"></span>Staking and passive yield products</div>
+        <div class="perk"><span class="perk-dot"></span>Fee discount with referral link</div>
+      </div>
+      <div class="ref-cta">Open Binance <span class="ref-arrow">→</span></div>
+    </a>
+  </div>
+
+  <div class="cat-label">🏦 Investing & Banking</div>
+  <div class="ref-grid">
+    <a class="ref-card" href="https://refnocode.trade.re/krmdbg57" target="_blank" rel="noopener">
+      <div class="ref-card-head"><div class="ref-icon ri-tr">📈</div><div><div class="ref-cat">Investing · Banking</div><div class="ref-name">Trade Republic</div></div></div>
+      <p class="ref-desc">The smartest way to invest, spend and bank. Commission-free stocks, ETFs, crypto and a high-yield savings account — all in one elegant app.</p>
+      <div class="ref-perks">
+        <div class="perk"><span class="perk-dot"></span>Commission-free stocks & ETFs</div>
+        <div class="perk"><span class="perk-dot"></span>High-yield savings account</div>
+        <div class="perk"><span class="perk-dot"></span>Welcome bonus on account creation</div>
+        <div class="perk"><span class="perk-dot"></span>Available across Europe including Ireland</div>
+      </div>
+      <div class="ref-cta">Open Trade Republic <span class="ref-arrow">→</span></div>
+    </a>
+    <a class="ref-card" href="https://revolut.com/referral/?referral-code=aakashxhhl!MAY2-26-AR-L3&geo-redirect" target="_blank" rel="noopener">
+      <div class="ref-card-head"><div class="ref-icon ri-rv">💳</div><div><div class="ref-cat">Digital Banking</div><div class="ref-name">Revolut</div></div></div>
+      <p class="ref-desc">Join 70 million+ users who love Revolut. Spend globally with no hidden fees, exchange currencies at interbank rates, and manage your money smarter every day.</p>
+      <div class="ref-perks">
+        <div class="perk"><span class="perk-dot"></span>Multi-currency accounts & cards</div>
+        <div class="perk"><span class="perk-dot"></span>Fee-free international spending</div>
+        <div class="perk"><span class="perk-dot"></span>Crypto, stocks & commodities in-app</div>
+        <div class="perk"><span class="perk-dot"></span>Referral reward for both of us</div>
+      </div>
+      <div class="ref-cta">Open Revolut <span class="ref-arrow">→</span></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <a class="footer-logo" href="index.html">Tech<span>&</span>Sats</a>
+  <div class="footer-links">
+    <a href="index.html#blogs">Blog</a>
+    <a href="referrals.html">Referrals</a>
+    <a href="index.html#about">About</a>
+  </div>
+  <div class="footer-copy">© 2026 TechAndSats · Not financial advice</div>
+</footer>
+
+<script>
+const html = document.documentElement;
+const btn = document.getElementById('toggle');
+const saved = localStorage.getItem('tas-theme') || 'light';
+html.setAttribute('data-theme', saved);
+btn.addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next); localStorage.setItem('tas-theme', next);
+});
+function copyCode(e, code) {
+  e.preventDefault(); e.stopPropagation();
+  navigator.clipboard.writeText(code).then(() => {
+    const b = e.target; b.textContent = 'Copied!'; b.style.color = 'var(--accent)';
+    setTimeout(() => { b.textContent = 'Copy'; b.style.color = ''; }, 2000);
+  });
+}
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'), e.target.dataset.delay||0); obs.unobserve(e.target); }});
+}, {threshold:0.06});
+document.querySelectorAll('.ref-card').forEach((el,i) => { el.dataset.delay=(i%3)*90; obs.observe(el); });
+</script>
+</body>
+</html>
